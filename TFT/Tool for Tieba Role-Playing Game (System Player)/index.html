@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=0.8, maximum-scale=3.0, user-scalable=1" />
+    <title></title><!--display: none;-->
+	 <style type="text/css">
+	body {
+	height: 100%;
+display: box;
+
+}
+
+div{padding:0px;margin:0px;}
+#maskDiv{position:absolute; left:0px; top:0px; background:gray; height: 932px; width: 1566px; z-index: 10000;display:none;opacity: 0.4;}
+#tipDiv{position:absolute; left:10%; top:10%; background:white; height: 524px; width: 1088px;z-index: 10001;display:none}
+      .clickCanvas {
+        height: 62%; width: 100%; border: 3px solid black;background-color:white;display: none;
+      }
+	  #MainBox {
+        height: 100%; width: 100%; border: 1px solid black;background-color:white;
+      }
+	  #MessageBox {
+        height: 90%; width: 100%; border: 1px solid black;background-color:white;OVERFLOW-Y: auto; OVERFLOW-X:hidden;
+
+      }
+	  #ButtonBox {
+        height: 15%; width: 100%; border: 1px solid black;background-color:white;
+      }
+	  .ldiv{
+		  height: 25%;width: 100%;
+	  }
+	  .faceb{
+		  width: 100px;
+	  }
+		.redSpan{
+			color:#FF0000 ;
+		}
+		.yellowSpan{
+			color:#008800;
+		}
+    </style>
+    <script type="text/javascript">
+    	
+   		document.addEventListener('plusready', function(){
+   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+   			
+   		});
+   		
+    </script>
+</head>
+<body style="background-color:#888888" >
+	<div id="winDiv" style="height: 632px; width: 1366px;">
+	<div id="pageDiv"></div>
+<div id="maskDiv"></div>
+<div id="tipDiv">
+<div style="height: 62%; width: 100%; background-color:white;"><div id="tipTitleBox" style="height: 10%; width: 100%;text-align: center;font-size: 20px;">标题</div><div id="tippicdiv" style="position:relative;left:10%; top:0px; height: 80%; width: 80%;"><canvas id="tipCanvas" style="height: 100%; width:100%;"></canvas></div></div>
+<div id="tipMesBox" style="height: 28%; width: 90%;OVERFLOW-Y: auto; OVERFLOW-X:hidden;position:relative;left:5%;"></div>
+<div id="tipBtnBox" style="height: 10%; width: 100%; background-color:white;"></div>
+</div>
+
+<div id="upCanvas" style="position:absolute; left:11px; top:11px;height: auto; width: 1366px; background-color:rgb(0,0,0);color:#FFFFFF;font:18px 黑体;z-index: 500;display: none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;"></div>
+<canvas id="mycanvas" class="clickCanvas" >Canvas加载失败!</canvas>
+<canvas id="AreaCanvas" class="clickCanvas" ></canvas>
+<canvas id="LandCanvas" class="clickCanvas" ></canvas>
+<canvas id="ArmyCanvas" class="clickCanvas"></canvas>
+<canvas id="underCanvas" style="display:none;"></canvas>
+<div id="MainBox">
+<div id="MessageBox">
+
+</div>
+<div id="ButtonBox">
+<button id="pageS" class="faceb" type="button" onclick="turnPage('S')" style="color: #FF0000">保存档案</button>
+<button id="page1" class="faceb" type="button" onclick="turnPage('1')" style="color: #FF0000">读取档案</button>
+<button id="page2" class="faceb" type="button" onclick="turnPage('2')" >游戏设定</button>
+<button id="pageD" class="faceb" type="button" onclick="turnPage('D')" >游戏效果</button>
+<button id="pageM" class="faceb" type="button" onclick="turnPage('M')" style="color: #0000FF;">查看地图</button>
+<input type="file" onchange="changePic(event)" name="filename" id="openimg" accept=".jpg,.png" style="display:none"/>
+
+<button id="page3" class="faceb" type="button" onclick="turnPage('3')">区&nbsp;&nbsp;&nbsp;&nbsp;域</button>
+<button id="page6" class="faceb" type="button" onclick="turnPage('6')">地&nbsp;&nbsp;&nbsp;&nbsp;形</button>
+<button id="page4" class="faceb" type="button" onclick="turnPage('4')">国&nbsp;&nbsp;&nbsp;&nbsp;家</button>
+<button id="page5" class="faceb" type="button" onclick="turnPage('5')">军&nbsp;&nbsp;&nbsp;&nbsp;队</button>
+<button id="page7" class="faceb" type="button" onclick="turnPage('7')">单位编辑器</button>
+<button id="pageX" class="faceb" type="button" onclick="turnPage('X')" style="color: #0000FF;width: 120px;">发送存档和信息</button>
+<button id="pageC" class="faceb" type="button" onclick="turnPage('C')" style="color: #0000FF;width: 120px;">载入玩家命令</button>
+<button id="pageK" class="faceb" type="button" onclick="turnPage('K')" style="color: #009900;">控制台</button>
+<button id="pageR" class="faceb" type="button" onclick="turnPage('R')" style="color: #009900;">资源</button>
+<button id="pageH" class="faceb" type="button" onclick="turnPage('H')">帮&nbsp;&nbsp;&nbsp;&nbsp;助</button>
+</div>
+</div>
+</div>
+<audio id="sound" autoplay="autoplay" volume="1.0"></audio>
+<audio id="BGM1" autoplay="autoplay" data-playing="-1" onended="playList(this)"></audio>
+<audio id="BGM2" autoplay="autoplay" data-playing="-1" onended="playList(this)"></audio>
+<audio id="BGM3" autoplay="autoplay" data-playing="-1" onended="playList(this)"></audio>
+<script type="text/javascript" src="js/Test.js"></script>
+<script type="text/javascript" src="js/Basic.js"></script>
+<script type="text/javascript" src="js/Classes.js"></script>
+<script type="text/javascript" src="js/Class_ShowingImage.js"></script>
+<script type="text/javascript" src="js/DefaultRes.js"></script>
+<script type="text/javascript" src="js/PopUpWindow.js"></script>
+<script type="text/javascript" src="js/Pages.js"></script>
+<script type="text/javascript" src="js/PreRead.js"></script>
+<script type="text/javascript" src="js/Main.js"></script>
+<script type="text/javascript" src="js/CanvaBehavior.js"></script>
+</body>
+</html>
+
